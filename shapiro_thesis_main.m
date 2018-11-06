@@ -27,7 +27,15 @@ l_hst = (m_drv*l_tether)/(m_hst + m_drv);     % [km]
 l_drv = l_tether - l_hst;               %[km]
 
 % determine inertial properties
-J_hst = endbody_intertia(m_hst,r_hst);
-J_drv = endbody_intertia(m_drv,r_drv);
+J_hst = endbody_inertia(m_hst,r_hst);
+J_drv = endbody_inertia(m_drv,r_drv);
+
+% also will eventually be variable
+% Inertia of system in body frame
+% y-axis aligned with tether
+J_sys = [m_hst*l_hst^2+m_drv*l_drv^2    0   0;...
+        0   J_drv(1)+J_hst(1)   0;...
+        0   0   m_hst*l_hst^2+m_drv*l_drv^2];
+    
 
 t_gam = 15*pi/180;      % tether pitch angle
